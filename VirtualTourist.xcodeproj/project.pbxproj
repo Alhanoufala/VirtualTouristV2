@@ -14,6 +14,9 @@
 		B18B96BF26AD8F9F00F2D356 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18B96BE26AD8F9F00F2D356 /* SearchResponse.swift */; };
 		B18B96C226AD909F00F2D356 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18B96C126AD909F00F2D356 /* FlickrClient.swift */; };
 		B18B96C726AE210F00F2D356 /* PhotoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18B96C626AE210F00F2D356 /* PhotoCollectionCell.swift */; };
+		B18B96CA26B4D95200F2D356 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18B96C926B4D95200F2D356 /* WeatherViewController.swift */; };
+		B18B96CE26B4EAA900F2D356 /* OpenWeatherClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18B96CD26B4EAA900F2D356 /* OpenWeatherClient.swift */; };
+		B18B96D126B4ED5100F2D356 /* OpenWeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18B96D026B4ED5100F2D356 /* OpenWeatherResponse.swift */; };
 		B1F7874B26AC54ED0070858E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F7874A26AC54ED0070858E /* AppDelegate.swift */; };
 		B1F7874D26AC54ED0070858E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F7874C26AC54ED0070858E /* SceneDelegate.swift */; };
 		B1F7874F26AC54ED0070858E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F7874E26AC54ED0070858E /* MapViewController.swift */; };
@@ -50,6 +53,9 @@
 		B18B96BE26AD8F9F00F2D356 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		B18B96C126AD909F00F2D356 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		B18B96C626AE210F00F2D356 /* PhotoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionCell.swift; sourceTree = "<group>"; };
+		B18B96C926B4D95200F2D356 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		B18B96CD26B4EAA900F2D356 /* OpenWeatherClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherClient.swift; sourceTree = "<group>"; };
+		B18B96D026B4ED5100F2D356 /* OpenWeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherResponse.swift; sourceTree = "<group>"; };
 		B1F7874726AC54ED0070858E /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1F7874A26AC54ED0070858E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1F7874C26AC54ED0070858E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,7 +103,9 @@
 			children = (
 				B18B96C426AD90DB00F2D356 /* Core Data */,
 				B18B96C326AD90AD00F2D356 /*  Flickr Client */,
+				B18B96CF26B4EAB900F2D356 /* Open Weather Client */,
 				B18B96C026AD8FC700F2D356 /* Flickr Response */,
+				B18B96D226B4ED6A00F2D356 /* Open Weather Response */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -139,6 +147,22 @@
 				B1F7875826AC54F00070858E /* Info.plist */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		B18B96CF26B4EAB900F2D356 /* Open Weather Client */ = {
+			isa = PBXGroup;
+			children = (
+				B18B96CD26B4EAA900F2D356 /* OpenWeatherClient.swift */,
+			);
+			name = "Open Weather Client";
+			sourceTree = "<group>";
+		};
+		B18B96D226B4ED6A00F2D356 /* Open Weather Response */ = {
+			isa = PBXGroup;
+			children = (
+				B18B96D026B4ED5100F2D356 /* OpenWeatherResponse.swift */,
+			);
+			name = "Open Weather Response";
 			sourceTree = "<group>";
 		};
 		B1F7873E26AC54ED0070858E = {
@@ -196,6 +220,7 @@
 			children = (
 				B1F7874E26AC54ED0070858E /* MapViewController.swift */,
 				B1F7877B26AC57410070858E /* PhotoAlbumViewController.swift */,
+				B18B96C926B4D95200F2D356 /* WeatherViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -331,13 +356,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1F7874F26AC54ED0070858E /* MapViewController.swift in Sources */,
+				B18B96CA26B4D95200F2D356 /* WeatherViewController.swift in Sources */,
 				B18B96C226AD909F00F2D356 /* FlickrClient.swift in Sources */,
 				B18B96B826AD6AB100F2D356 /* DataController.swift in Sources */,
 				B18B96B526ACCA0A00F2D356 /* VirtualTourist.xcdatamodeld in Sources */,
 				B1F7874B26AC54ED0070858E /* AppDelegate.swift in Sources */,
 				B18B96BB26AD8F2D00F2D356 /* PhotoParserResponse.swift in Sources */,
+				B18B96D126B4ED5100F2D356 /* OpenWeatherResponse.swift in Sources */,
 				B1F7874D26AC54ED0070858E /* SceneDelegate.swift in Sources */,
 				B18B96BD26AD8F6900F2D356 /* PhotosParserResponse.swift in Sources */,
+				B18B96CE26B4EAA900F2D356 /* OpenWeatherClient.swift in Sources */,
 				B18B96C726AE210F00F2D356 /* PhotoCollectionCell.swift in Sources */,
 				B1F7877C26AC57410070858E /* PhotoAlbumViewController.swift in Sources */,
 				B18B96BF26AD8F9F00F2D356 /* SearchResponse.swift in Sources */,

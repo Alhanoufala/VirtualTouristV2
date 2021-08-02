@@ -10,20 +10,17 @@ import MapKit
 import CoreData
 
 class PhotoAlbumViewController : UIViewController {
+    
     @IBOutlet weak var label: UILabel!
-    
     @IBOutlet weak var activtyIndicator: UIActivityIndicatorView!
-    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var newCollectionButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     
     var fetchedResultsController:NSFetchedResultsController<Photo>!
-    
+    var segmentControl: UISegmentedControl!
     var pin:Pin!
     var urls = [URL]()
-    
-    
     
     var insert : [IndexPath]!
     var delete : [IndexPath]!
@@ -87,6 +84,7 @@ class PhotoAlbumViewController : UIViewController {
         }
     }
     
+    
     // MARK:- Get Flickr Photos
     func getFlickrPhotos() {
         
@@ -147,6 +145,32 @@ class PhotoAlbumViewController : UIViewController {
             DataController.shared.saveViewContext()
             getFlickrPhotos()
             
+            
+        }
+    }
+    // MARK:- segmentControl
+    func segmentControl(segment: UISegmentedControl){
+        switch segment.selectedSegmentIndex {
+        case 0:
+            overrideUserInterfaceStyle = .light
+        case 1:
+            overrideUserInterfaceStyle = .dark
+        case 2:
+            overrideUserInterfaceStyle = .unspecified
+        default:
+            break
+            
+        }
+        
+    }
+    // MARK:- weatherTapped
+    @IBAction func weatherTapped(_ sender: Any) {
+        performSegue(withIdentifier: "WeatherViewController", sender: nil)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "WeatherViewController" {
+            let WeatherVC = segue.destination as! WeatherViewController
+            WeatherVC.pin = pin
             
         }
     }
@@ -266,7 +290,6 @@ extension PhotoAlbumViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let photosToDelete = fetchedResultsController.object(at: indexPath)
-        
         DataController.shared.viewContext.delete(photosToDelete)
         DataController.shared.saveViewContext()
     }

@@ -11,10 +11,12 @@ import CoreData
 
 class MapViewController: UIViewController, UIGestureRecognizerDelegate, NSFetchedResultsControllerDelegate {
     
+    @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var mapView: MKMapView!
-    
+    @IBOutlet weak var editButton: UIBarButtonItem!
     
     var fetchedResultsController:NSFetchedResultsController<Pin>!
+    var isEditingEnabled = false
     
     // MARK:- viewDidLoad
     override func viewDidLoad() {
@@ -125,7 +127,38 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, NSFetche
         }
         mapView.addAnnotations(annotations)
     }
+    // MARK:- segmentControlTapped
+    @IBAction func segmentControlTapped(segment: UISegmentedControl){
+        switch segment.selectedSegmentIndex {
+        case 0:
+            overrideUserInterfaceStyle = .light
+        case 1:
+            overrideUserInterfaceStyle = .dark
+        case 2:
+            overrideUserInterfaceStyle = .unspecified
+        default:
+            break
+            
+        }
+    }
+    // MARK:- editButtonTapped
+    @IBAction func editButtonTapped(_ sender: Any) {
+        isEditingEnabled = !isEditingEnabled
+        if isEditingEnabled == true {
+            changeNavTitle(navTitle: "Tap on a pin to delete", title: "Done", color: UIColor.red)
+        }
+        else {
+            changeNavTitle(navTitle: "Virtual Tourist", title: "Edit", color: UIColor.black)
+            
+        }
+    }
     
+    func changeNavTitle(navTitle: String, title: String, color: UIColor ){
+        editButton.title  = title
+        navigationItem.title = navTitle
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:color]
+        
+    }
 }
 extension MapViewController :MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -151,16 +184,47 @@ extension MapViewController :MKMapViewDelegate {
         let photoAlbumVC : PhotoAlbumViewController
         photoAlbumVC = storyboard?.instantiateViewController(withIdentifier: "PhotoAlbumVC") as! PhotoAlbumViewController
         
-        
+        mapView.deselectAnnotation(view.annotation!, animated: false)
         if let pins = fetchedResultsController.fetchedObjects {
-            for pin in pins {
-                if pin.latitude == view.annotation?.coordinate.latitude && pin.longitude == view.annotation?.coordinate.longitude {
-                    photoAlbumVC.pin = pin
+            
+            
+            if isEditingEnabled{
+                
+                //https://stackoverflow.com/questions/2026649/nspredicate-dont-work-with-double-values-f
+                let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
+                let epsilon = 0.000000001;
+                let coordinate = view.annotation!.coordinate
+                let fetchPredicate = NSPredicate(format: "latitude > %lf AND latitude < %lf AND longitude > %lf AND longitude < %lf",
+                                                 coordinate.latitude - epsilon,  coordinate.latitude + epsilon,
+                                                 coordinate.longitude - epsilon, coordinate.longitude + epsilon)
+                fetchRequest.predicate = fetchPredicate
+                do {
+                    let pins = try DataController.shared.viewContext.fetch(fetchRequest)
                     
-                    navigationController!.pushViewController(photoAlbumVC, animated: true)
-                    
+                    for pin in pins {
+                        DataController.shared.viewContext.delete(pin)
+                        DataController.shared.saveViewContext()
+                    }
+                    mapView.removeAnnotation(view.annotation!)
+                    DataController.shared.saveViewContext()
+                } catch {
+                    fatalError("The fetch could not be performed: \(error.localizedDescription)")
                 }
             }
+            else {
+                for pin in pins {
+                    if pin.latitude == view.annotation?.coordinate.latitude && pin.longitude == view.annotation?.coordinate.longitude {
+                        photoAlbumVC.pin = pin
+                        photoAlbumVC.segmentControl = segmentControl
+                        photoAlbumVC.segmentControl(segment: segmentControl)
+                        
+                        navigationController!.pushViewController(photoAlbumVC, animated: true)
+                        
+                    }
+                }
+            }
+            
+            
         }
     }
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {

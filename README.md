@@ -4,7 +4,17 @@ The Virtual Tourist app downloads and stores images from Flickr API. The app all
 
 System Interfaces :
 
-<img width="393" alt="Screen Shot 1444-02-02 at 9 18 29 PM" src="https://user-images.githubusercontent.com/79309859/187270833-1d7ead47-fd8a-4a01-80c9-7c12014c5b65.png"> <img width="393" alt="Screen Shot 1444-02-02 at 9 18 41 PM" src="https://user-images.githubusercontent.com/79309859/187270885-2fa502e6-ec79-47cd-a203-3bacb764352c.png"> <img width="393" alt="Screen Shot 1444-02-02 at 9 18 50 PM" src="https://user-images.githubusercontent.com/79309859/187270934-6b5edb69-4606-4438-bb4b-e4b64e496dfa.png">
+The map view : 
+
+<img width="393" alt="Screen Shot 1444-02-02 at 9 18 29 PM" src="https://user-images.githubusercontent.com/79309859/187270833-1d7ead47-fd8a-4a01-80c9-7c12014c5b65.png">
+
+The  images downloaded from Flickr API for the specific location :
+
+<img width="393" alt="Screen Shot 1444-02-02 at 9 18 41 PM" src="https://user-images.githubusercontent.com/79309859/187270885-2fa502e6-ec79-47cd-a203-3bacb764352c.png">
+
+The weather information downloaded from OpenWeather API :
+
+<img width="393" alt="Screen Shot 1444-02-02 at 9 18 50 PM" src="https://user-images.githubusercontent.com/79309859/187270934-6b5edb69-4606-4438-bb4b-e4b64e496dfa.png">
 
 
 
